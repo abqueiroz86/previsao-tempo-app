@@ -1,42 +1,39 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
-
-type City = {
-  name: string;
-  lat: number;
-  lon: number;
-};
 
 const customIcon = L.icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
   iconSize: [32, 32],
 });
 
-function ChangeView({ lat, lon }: { lat: number; lon: number }) {
+
+function ChangeView({ center }: { center: [number, number] }) {
   const map = useMap();
 
   useEffect(() => {
-    map.setView([lat, lon], 13);
-  }, [lat, lon]);
+    map.whenReady(() => {
+      map.flyTo(center, 13);
+    });
+  }, [center]);
 
   return null;
 }
 
-export default function MapView({ city }: any) {
+export default function MapView({ center }: { center: [number, number] }) {
   return (
     <MapContainer
-      center={[city.lat, city.lon]}
+      center={center}
       zoom={13}
-      className="h-[400px]"
+      style={{ height: "400px", width: "100%" }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      <Marker position={[city.lat, city.lon]} icon={customIcon} />
+      <Marker position={center} icon={customIcon} />
 
-      <ChangeView lat={city.lat} lon={city.lon} />
+      <ChangeView center={center} />
     </MapContainer>
   );
 }

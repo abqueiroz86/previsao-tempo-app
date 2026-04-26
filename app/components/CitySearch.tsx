@@ -1,9 +1,11 @@
 "use client";
 
 // Importa o hook useState para gerenciar o estado do componente
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Importa a função para buscar a previsão do tempo
 import { getWeather } from "../services/api";
+// Importa o componente de histórico de buscas
+import HistorySearch from "./HistorySearch";
 // Importa o componente do mapa
 import dynamic from "next/dynamic";
 
@@ -28,13 +30,13 @@ export default function CitySearch() {
   };
 
   // Estado para armazenar a cidade digitada e a resposta da API
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState<any | null>(null);
   const [response, setResponse] = useState<Weather | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Função para buscar a previsão do tempo para a cidade informada
   const handleSearch = async () => {
-    if (!city.trim()) {
+    if (!city || !city.trim()) {
       setError("Informe uma cidade");
       return;
     }
@@ -45,8 +47,11 @@ export default function CitySearch() {
       const data = await getWeather(city);
 
       setResponse(data);
+      setPosition([data.coord.lat, data.coord.lon]);
     } catch (err: unknown) {
       setResponse(null);
+      setPosition([-23.55, -46.63]); // posição padrão (São Paulo)
+
       setError("Cidade não encontrada. Tente novamente.");
     }
   };
@@ -55,7 +60,9 @@ export default function CitySearch() {
     e.preventDefault();
     handleSearch();
   };
-
+    
+  const [position, setPosition] = useState<[number, number]>([-23.55, -46.63]);
+  
   return (
     <form onSubmit={handleSubmit}>  
     <div className="mt-10 text-gray-700 grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -97,10 +104,13 @@ export default function CitySearch() {
                   {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
                 </div>
             }
+            <div className="mt-4">
+              <HistorySearch history={history} setPosition={setPosition} />
+            </div>
         </div>
 
         <div className="h-[300px] lg:h-full rounded-lg overflow-hidden">
-          <MapView city={{ name: response?.city || "Ribeirão Preto", lat: response?.coord?.lat || -21.1775, lon: response?.coord?.lon || -47.8103 }} />
+          <MapView center={position} />
         </div>
     </div>
     </form>
