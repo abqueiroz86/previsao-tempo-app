@@ -8,6 +8,7 @@ import { getWeather } from "../services/api";
 import HistorySearch from "./HistorySearch";
 // Importa o componente do mapa
 import dynamic from "next/dynamic";
+import WeatherResult from "./WeatherResult";
 
 const MapView = dynamic(() => import("./MapView"), {
   ssr: false,
@@ -67,7 +68,7 @@ export default function CitySearch() {
         <p className="text-gray-500 text-sm mb-2">
           🔎 Digite o nome da cidade para obter a previsão do tempo.
         </p>
-        <div className="flex gap-2 w-full">
+        <div className="flex flex-col sm:flex-row gap-2 w-full">
           <input
             onChange={(e) => setCity(e.target.value)}
             type="text"
@@ -94,51 +95,10 @@ export default function CitySearch() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
 
           {/* ── COLUNA ESQUERDA: PREVISÃO ── */}
-          <div>
-
-            {/* Card de resultado da previsão */}
-            <div className="p-4 rounded-xl bg-gray-50 shadow-sm">
-
-              <p className="text-lg font-semibold mb-0">
-                📍 {response?.city || "Informe a cidade"}
-              </p>
-              <p className="text-sm text-gray-500 mb-3">
-                🌤️ {response?.description}
-              </p>
-
-              <p className="text-5xl font-semibold text-gray-800 mb-4 leading-none">
-                {response?.temp}
-                <span className="text-2xl text-gray-400">°C</span>
-              </p>
-
-              {/* Grade 2x2 de métricas */}
-              <div className="grid grid-cols-2 gap-2">
-                <div className="bg-white rounded-lg p-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 mb-1">Sensação</p>
-                  <p className="text-sm font-semibold text-gray-700">{response?.feels_like}°C</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 mb-1">Umidade</p>
-                  <p className="text-sm font-semibold text-gray-700">{response?.humidity}%</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 mb-1">Vento</p>
-                  <p className="text-sm font-semibold text-gray-700">{response?.wind_speed} m/s</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 mb-1">Condição</p>
-                  <p className="text-sm font-semibold text-gray-700 capitalize">{response?.description}</p>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
+          <WeatherResult response={response} />
 
           {/* ── COLUNA DIREITA: MAPA ── */}
-          <div className="h-[300px] lg:h-full rounded-lg overflow-hidden">
-            <MapView center={position} />
-          </div>
+          <MapView center={position} />
 
         </div> {/* fim grid 2 colunas */}
 

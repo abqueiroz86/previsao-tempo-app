@@ -24,16 +24,18 @@ function ChangeView({ center }: { center: [number, number] }) {
 
 export default function MapView({ center }: { center: [number, number] }) {
   return (
-    <MapContainer
-      center={center}
-      zoom={13}
-      style={{ height: "300px", width: "100%" }}
-    >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    <div className="h-[300px] lg:h-full rounded-lg overflow-hidden">
+      <MapContainer
+        center={center}
+        zoom={13}
+        style={{ height: "300px", width: "100%" }}
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      <Marker position={center} icon={customIcon} />
+        <Marker position={center} icon={customIcon} />
 
-      <ChangeView center={center} />
-    </MapContainer>
+        <ChangeView center={center} />
+      </MapContainer>
+    </div>
   );
 }
