@@ -5,7 +5,11 @@ import { useState } from "react";
 // Importa a função para buscar a previsão do tempo
 import { getWeather } from "../services/api";
 // Importa o componente do mapa
-import MapView from "./MapView";
+import dynamic from "next/dynamic";
+
+const MapView = dynamic(() => import("./MapView"), {
+  ssr: false,
+});
 
 export default function CitySearch() {
 
@@ -41,7 +45,7 @@ export default function CitySearch() {
       const data = await getWeather(city);
 
       setResponse(data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setResponse(null);
       setError("Cidade não encontrada. Tente novamente.");
     }
