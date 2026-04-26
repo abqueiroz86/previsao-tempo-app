@@ -26,11 +26,25 @@ export default function CitySearch() {
   // Estado para armazenar a cidade digitada e a resposta da API
   const [city, setCity] = useState("");
   const [response, setResponse] = useState<Weather | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Função para buscar a previsão do tempo para a cidade informada
   const handleSearch = async () => {
-    const data = await getWeather(city);
-    setResponse(data);
+    if (!city.trim()) {
+      setError("Informe uma cidade");
+      return;
+    }
+
+    try {
+      setError(null); // limpa erro anterior
+
+      const data = await getWeather(city);
+
+      setResponse(data);
+    } catch (err: any) {
+      setResponse(null);
+      setError("Cidade não encontrada. Tente novamente.");
+    }
   };
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -55,6 +69,13 @@ export default function CitySearch() {
             className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
             Consultar Previsão
         </button>
+
+        {/* ❌ ERRO */}
+        {error && (
+          <p className="text-red-500 mt-2">
+            {error}
+          </p>
+        )}
 
         {/* Exibe a resposta da API se estiver disponível */}
         { response &&

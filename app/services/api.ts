@@ -1,7 +1,16 @@
 export async function getWeather(city: string) {
-  const res = await fetch(
-    `http://localhost:8000/weather?city=${city}`
-  );
+    try {
+        const res = await fetch(
+            `http://localhost:8000/weather?city=${city}`
+        );
 
-  return res.json();
+        if (!res.ok) {
+            throw new Error(res.statusText || "Erro na API");
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 }

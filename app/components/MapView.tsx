@@ -1,7 +1,6 @@
 "use client";
 
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 
@@ -9,10 +8,6 @@ type City = {
   name: string;
   lat: number;
   lon: number;
-};
-
-type Props = {
-  city: City;
 };
 
 const customIcon = L.icon({
