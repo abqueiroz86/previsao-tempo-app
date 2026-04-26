@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⛅ Previsão do Tempo
+
+Aplicação fullstack para consulta de clima em tempo real, com histórico de buscas e visualização em mapa.
+
+## 🚀 Preview
+
+![Preview do projeto](./docs/home.png)
 
 ## Getting Started
 
