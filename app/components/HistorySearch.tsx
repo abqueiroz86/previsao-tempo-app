@@ -36,21 +36,24 @@ export default function HistorySearch({ historyProp, setPosition }: Props) {
 
   return (
     <div>
-      <h2>Histórico de Buscas:</h2>
+        <p className="mt-4 text-lg font-semibold">Histórico de Buscas:</p>
 
-    { uniqueCities &&
-        <ul>
-            {uniqueCities.map((item) => (
-                <li
-                key={item.city}
-                onClick={() => setPosition([item.coord.lat, item.coord.lon])}
-                style={{ cursor: "pointer" }}
-                >
-                {item.city} - {item.temp}°C
-                </li>
-            ))}
-        </ul>
-    }
+        { uniqueCities &&
+            <ul className="mt-3 space-y-2">
+                {uniqueCities.map((item, index) => (
+                    <li
+                    key={`${item.city}-${index}`}
+                    onClick={() => setPosition([item.coord.lat, item.coord.lon])}
+                    className="cursor-pointer p-3 rounded-xl bg-gray-50 shadow-sm hover:bg-blue-50 hover:scale-[1.02] transition"
+                    >
+                    <div className="font-semibold text-base">{item.city}</div>
+                    <div className="text-sm text-gray-600">
+                        🌡 {item.temp}°C • {item.description}
+                    </div>
+                    </li>
+                ))}
+            </ul>
+        }
     </div>
   );
 }

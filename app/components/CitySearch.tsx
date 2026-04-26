@@ -67,7 +67,9 @@ export default function CitySearch() {
     <form onSubmit={handleSubmit}>  
     <div className="mt-10 text-gray-700 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-            <p className="text-lg">Digite o nome da cidade para obter a previsão do tempo.</p>
+            <p className="text-gray-500 text-sm mt-2">
+              🔎 Digite o nome da cidade para obter a previsão do tempo.
+            </p>
             
             <input
                 onChange={(e) => setCity(e.target.value)}
@@ -79,7 +81,7 @@ export default function CitySearch() {
             <button 
                 type="submit"
                 className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-                Consultar Previsão
+                Consultar
             </button>
 
             {/* ❌ ERRO */}
@@ -92,16 +94,20 @@ export default function CitySearch() {
 
             {/* Exibe a resposta da API se estiver disponível */}
             { response &&
-                <div className="mt-4">
-                  <p className="mt-4 text-lg font-semibold">Previsão do Tempo para {response.city}:</p>
-                  <p className="text-gray-600">🌡️ Temperatura: {response.temp}°C</p>
-                  <p className="text-gray-600">🤒 Sensação Térmica: {response.feels_like}°C</p>
-                  <p className="text-gray-600">💧 Umidade do ar: {response.humidity}%</p>
-                  <p className="text-gray-600">💨 Velocidade do vento: {response.wind_speed} m/s</p>
-                  <p className="text-gray-600">🌤️ Descrição: {response.description}</p>
-                  
-                  {/* Resposta completa da API */}
-                  {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
+                <div
+                  className="mt-4 p-4 rounded-xl bg-gray-50 shadow-sm"
+                >
+                  <p className="text-lg font-semibold mb-3">
+                    📍 {response.city}
+                  </p>
+
+                  <div className="space-y-1 text-sm text-gray-600">
+                    <p>🌡️ Temperatura: <b>{response.temp}°C</b></p>
+                    <p>🤒 Sensação: <b>{response.feels_like}°C</b></p>
+                    <p>💧 Umidade: <b>{response.humidity}%</b></p>
+                    <p>💨 Vento: <b>{response.wind_speed} m/s</b></p>
+                    <p>🌤️ {response.description}</p>
+                  </div>
                 </div>
             }
             <div className="mt-4">
