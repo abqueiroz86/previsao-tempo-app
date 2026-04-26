@@ -1,4 +1,3 @@
-import MapContainer from "./components/MapContainer";
 import CitySearch from "./components/CitySearch";
 
 export default function Home() {
@@ -11,7 +10,6 @@ export default function Home() {
       
         <CitySearch />
         
-        <MapContainer />
       </main>
     </div>
   );

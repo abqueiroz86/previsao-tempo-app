@@ -4,6 +4,8 @@
 import { useState } from "react";
 // Importa a função para buscar a previsão do tempo
 import { getWeather } from "../services/api";
+// Importa o componente do mapa
+import MapView from "./MapView";
 
 export default function CitySearch() {
 
@@ -13,8 +15,10 @@ export default function CitySearch() {
     temp: number;
     description: string;
     humidity: number;
-    lat: number;
-    lon: number;
+    coord: {
+      lat: number;
+      lon: number;
+    }
   };
 
   // Estado para armazenar a cidade digitada e a resposta da API
@@ -56,6 +60,9 @@ export default function CitySearch() {
             <pre>{JSON.stringify(response, null, 2)}</pre>
           </div>
         ) }
+
+        <MapView city={{ name: response?.city || "Ribeirão Preto", lat: response?.coord?.lat || -21.1775, lon: response?.coord?.lon || -47.8103 }} />
+
     </div>
   );
 }
