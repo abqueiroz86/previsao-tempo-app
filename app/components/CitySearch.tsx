@@ -13,8 +13,10 @@ export default function CitySearch() {
   type Weather = {
     city: string;
     temp: number;
-    description: string;
+    feels_like: number;
     humidity: number;
+    wind_speed: number;
+    description: string;
     coord: {
       lat: number;
       lon: number;
@@ -31,7 +33,13 @@ export default function CitySearch() {
     setResponse(data);
   };
 
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
   return (
+    <form onSubmit={handleSubmit}>  
     <div className="mt-10 text-gray-700">
         <p className="text-lg">Digite o nome da cidade para obter a previsão do tempo.</p>
         
@@ -43,26 +51,29 @@ export default function CitySearch() {
         />
 
         <button 
-            onClick={handleSearch}
+            type="submit"
             className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
             Consultar Previsão
         </button>
 
         {/* Exibe a resposta da API se estiver disponível */}
-        { response && (
-          <div className="mt-4">
-            <p className="mt-4 text-lg font-semibold">Previsão do Tempo para {response.city}:</p>
-            <p className="text-gray-600">Temperatura: {response.temp}°C</p>
-            <p className="text-gray-600">Descrição: {response.description}</p>
-            <p className="text-gray-600">Humidade do ar: {response.humidity}%</p>
-            
-            <p className="mt-4 text-sm text-gray-500">Resposta completa da API:</p>
-            <pre>{JSON.stringify(response, null, 2)}</pre>
-          </div>
-        ) }
+        { response &&
+            <div className="mt-4">
+              <p className="mt-4 text-lg font-semibold">Previsão do Tempo para {response.city}:</p>
+              <p className="text-gray-600">Temperatura: {response.temp}°C</p>
+              <p className="text-gray-600">Sensação Térmica: {response.feels_like}°C</p>
+              <p className="text-gray-600">Umidade do ar: {response.humidity}%</p>
+              <p className="text-gray-600">Velocidade do vento: {response.wind_speed} m/s</p>
+              <p className="text-gray-600">Descrição: {response.description}</p>
+              
+              {/* Resposta completa da API */}
+              {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
+            </div>
+        }
 
         <MapView city={{ name: response?.city || "Ribeirão Preto", lat: response?.coord?.lat || -21.1775, lon: response?.coord?.lon || -47.8103 }} />
 
     </div>
+    </form>
   );
 }
