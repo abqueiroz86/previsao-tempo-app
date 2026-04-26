@@ -4,7 +4,8 @@ Aplicação fullstack para consulta de clima em tempo real, com histórico de bu
 
 ## 🚀 Preview
 
-![Preview do projeto](./app/docs/home.png)(./app/docs/home2.png)
+![Preview do projeto](./app/docs/home.png)
+![Preview do projeto](./app/docs/home2.png)
 
 ## Getting Started
 
