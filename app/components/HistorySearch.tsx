@@ -8,8 +8,21 @@ type Props = {
   setPosition: (pos: [number, number]) => void;
 };
 
+type Weather = {
+  city: string;
+  temp: number;
+  feels_like: number;
+  humidity: number;
+  wind_speed: number;
+  description: string;
+  coord: {
+    lat: number;
+    lon: number;
+  };
+};
+
 export default function HistorySearch({ historyProp, setPosition }: Props) {
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<Weather[]>([]);
 
     async function handleSearch() {
         try {
@@ -22,15 +35,19 @@ export default function HistorySearch({ historyProp, setPosition }: Props) {
         }
     };
 
-    const uniqueCities = Object.values(
+    const uniqueCities: Weather[] = Object.values(
         history.reduce((acc, item) => {
             acc[item.city] = item;
             return acc;
-        }, {} as Record<string, typeof history[0]>)
+        }, {} as Record<string, Weather>)
     );
 
     useEffect(() => {
-        handleSearch();
+        async function load() {
+            await handleSearch();
+        }
+
+        load();
     }, []);
 
 
