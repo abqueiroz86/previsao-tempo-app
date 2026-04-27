@@ -33,6 +33,7 @@ export default function CitySearch() {
   const [city, setCity] = useState<any | null>(null);
   const [response, setResponse] = useState<Weather | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [history, setHistory] = useState<any[]>([]);
 
   // Função para buscar a previsão do tempo para a cidade informada
   const handleSearch = async () => {
@@ -46,6 +47,12 @@ export default function CitySearch() {
       const data = await getWeather(city);
       setResponse(data);
       setPosition([data.coord.lat, data.coord.lon]);
+
+      setHistory((prev) => {
+        const filtered = prev.filter((item) => item.city !== data.city);
+        return [data, ...filtered];
+      });
+
     } catch (err: unknown) {
       setResponse(null);
       setPosition([-23.55, -46.63]);
@@ -104,7 +111,7 @@ export default function CitySearch() {
 
         {/* Histórico buscas */}
         <div className="mt-4">
-          <HistorySearch history={history} setPosition={setPosition} />
+          <HistorySearch historyProp={history} setPosition={setPosition} />
         </div>
       </div>
     </form>

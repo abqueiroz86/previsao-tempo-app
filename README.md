@@ -51,7 +51,7 @@ npm install react-hot-toast
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
-```
+``` 
 
 Disponível em [http://localhost:8000](http://localhost:8000)
 
