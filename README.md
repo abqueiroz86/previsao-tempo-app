@@ -32,24 +32,31 @@ Aplicação fullstack para consulta de clima em tempo real, com histórico de bu
 ```bash
 git clone https://github.com/seu-usuario/seu-repo.git
 cd seu-repo
+``` 
 
 ## Frontend
 ```bash
 git clone https://github.com/seu-usuario/seu-repo.git
 cd seu-repo
+``` 
 
-## Instalar dependências
+### 2. Instalar dependências
+
 ## DEPENDENCIAS API
+```bash
 pip install fastapi uvicorn requests
 pip install python-dotenv
+``` 
 
 ## DEPENDENCIAS APP
+```bash
 npm install leaflet react-leaflet
 npm install react-hot-toast
+``` 
 
-## Rodando o Projeto
+## Executando o Projeto
+
 ### 1. Backend (FastAPI)
-
 ```bash
 cd backend
 pip install -r requirements.txt
@@ -59,7 +66,7 @@ uvicorn main:app --reload
 Disponível em [http://localhost:8000](http://localhost:8000)
 
 
-### 1. Frontend (Next.js)
+### 2. Frontend (Next.js)
 
 ```bash
 cd frontend
