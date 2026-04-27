@@ -30,13 +30,13 @@ Aplicação fullstack para consulta de clima em tempo real, com histórico de bu
 
 ## API
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/abqueiroz86/previsao-tempo-api
 cd seu-repo
 ``` 
 
 ## Frontend
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/abqueiroz86/previsao-tempo-app
 cd seu-repo
 ``` 
 
