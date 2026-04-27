@@ -42,7 +42,7 @@ cd seu-repo
 
 ### 2. Instalar dependências
 
-## DEPENDENCIAS API
+## 📦 DEPENDENCIAS API
 ```bash
 pip install fastapi uvicorn requests
 pip install python-dotenv
@@ -54,7 +54,12 @@ npm install leaflet react-leaflet
 npm install react-hot-toast
 ``` 
 
-## Executando o Projeto
+## API EXTERNA ( OpenWeather )
+Disponível em [https://openweathermap.org/](https://openweathermap.org/)
+
+Gerar uma key no site e salvar a mesma no arquivo .env da API
+
+## 💻 Executando o Projeto
 
 ### 1. Backend (FastAPI)
 ```bash
