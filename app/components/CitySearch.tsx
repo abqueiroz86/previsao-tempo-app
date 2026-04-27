@@ -111,7 +111,7 @@ export default function CitySearch() {
 
         {/* Histórico buscas */}
         <div className="mt-4">
-          <HistorySearch historyProp={history} setPosition={setPosition} />
+          <HistorySearch setPosition={setPosition} />
         </div>
       </div>
     </form>

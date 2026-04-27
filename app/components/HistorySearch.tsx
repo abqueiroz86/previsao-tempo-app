@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getHistory } from "../services/api";
 
 type Props = {
-  historyProp   : any[] | null;
   setPosition: (pos: [number, number]) => void;
 };
 
@@ -21,7 +20,7 @@ type Weather = {
   };
 };
 
-export default function HistorySearch({ historyProp, setPosition }: Props) {
+export default function HistorySearch({ setPosition }: Props) {
   const [history, setHistory] = useState<Weather[]>([]);
 
     async function handleSearch() {
@@ -31,7 +30,7 @@ export default function HistorySearch({ historyProp, setPosition }: Props) {
             setHistory(history);
 
         } catch (err: unknown) {
-            setHistory(null);
+            setHistory([]);
         }
     };
 
