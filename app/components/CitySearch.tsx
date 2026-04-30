@@ -1,7 +1,7 @@
 "use client";
 
 // Importa o hook useState para gerenciar o estado do componente
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // Importa a função para buscar a previsão do tempo
 import { getWeather } from "../services/api";
 // Importa o componente de histórico de buscas
@@ -30,10 +30,9 @@ export default function CitySearch() {
   };
 
   // Estado para armazenar a cidade digitada e a resposta da API
-  const [city, setCity] = useState<any | null>(null);
-  const [response, setResponse] = useState<Weather | null>(null);
+  const [city, setCity] = useState<string | null>(null);
+  const [response, setResponse] = useState<Weather | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
-  const [history, setHistory] = useState<any[]>([]);
 
   // Função para buscar a previsão do tempo para a cidade informada
   const handleSearch = async () => {
@@ -48,13 +47,8 @@ export default function CitySearch() {
       setResponse(data);
       setPosition([data.coord.lat, data.coord.lon]);
 
-      setHistory((prev) => {
-        const filtered = prev.filter((item) => item.city !== data.city);
-        return [data, ...filtered];
-      });
-
-    } catch (err: unknown) {
-      setResponse(null);
+    } catch {
+      setResponse(undefined);
       setPosition([-23.55, -46.63]);
       setError("Cidade não encontrada. Tente novamente.");
     }

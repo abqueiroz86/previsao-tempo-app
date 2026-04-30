@@ -1,4 +1,13 @@
-export default function WeatherResult({ response }: { response: any }) {
+type WeatherResponse = {
+    city?: string;
+    description?: string;
+    temp?: number | string;
+    feels_like?: number | string;
+    humidity?: number | string;
+    wind_speed?: number | string;
+};
+
+export default function WeatherResult({ response }: { response?: WeatherResponse }) {
     return (
         <div>
             {/* Card de resultado da previsão */}

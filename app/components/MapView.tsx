@@ -1,5 +1,7 @@
 "use client";
 
+// @ts-expect-error Leaflet types not available in this context
+import L from "leaflet";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
@@ -17,17 +19,16 @@ function ChangeView({ center }: { center: [number, number] }) {
     map.whenReady(() => {
       map.flyTo(center, 13);
     });
-  }, [center]);
+  }, [center, map]);
 
   return null;
 }
 
 export default function MapView({ center }: { center: [number, number] }) {
   return (
-    <div className="h-[300px] lg:h-full rounded-lg overflow-hidden">
+    <div className="h-75 lg:h-full rounded-lg overflow-hidden">
       <MapContainer
-        center={center}
-        zoom={13}
+        bounds={[center, center]}
         style={{ height: "300px", width: "100%" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

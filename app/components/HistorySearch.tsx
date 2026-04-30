@@ -29,7 +29,7 @@ export default function HistorySearch({ setPosition }: Props) {
             console.log("history:", history);
             setHistory(history);
 
-        } catch (err: unknown) {
+        } catch {
             setHistory([]);
         }
     };
